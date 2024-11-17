@@ -40,11 +40,13 @@ const products: Product[] = [
   },
 ];
 export const Popular = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const addToCart = (product: Product) => {
     // setCart(prevCart => {
     //   const existingItem = prevCart.find(item => item.id === product.id);
