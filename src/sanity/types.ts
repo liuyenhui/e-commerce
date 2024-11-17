@@ -188,3 +188,22 @@ export type HslaColor = {
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Slug | Header | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./src/sanity/query/section.ts
+// Variable: QUERY_HEADER
+// Query: *[_type == "header"][0]    {_id,title,subTitle,"bgColor":background.hex,"bgAlpha":background.alpha,"logo": logo.asset->url}
+export type QUERY_HEADERResult = {
+  _id: string;
+  title: string | null;
+  subTitle: string | null;
+  bgColor: string | null;
+  bgAlpha: number | null;
+  logo: string | null;
+} | null;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    "*[_type == \"header\"][0]\n    {_id,title,subTitle,\"bgColor\":background.hex,\"bgAlpha\":background.alpha,\"logo\": logo.asset->url}": QUERY_HEADERResult;
+  }
+}

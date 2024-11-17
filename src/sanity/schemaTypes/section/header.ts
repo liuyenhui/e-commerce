@@ -14,6 +14,9 @@ export default defineType({
       name: "logo",
       title: "店铺Logo",
       type: "image",
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({
       name: "subTitle",
