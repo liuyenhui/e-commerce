@@ -15,22 +15,37 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/admin](http://localhost:3000/admin) with your browser sanity studio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 进度日志
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 2024-11-19 完成商品设置、分类、品牌设置
 
-## Learn More
+- 2024-11-20 首页内容、商品详情 -- 待完成
 
-To learn more about Next.js, take a look at the following resources:
+- 2024-11-21 完成商品分类、品牌列表
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 2024-11-22 完成注册、登录
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 2024-11-23 完成购物车
+- 2024-11-24 完成订单
+- 2024-11-25 完成支付
 
-## Deploy on Vercel
+- 2024-11-26 完成评价
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 2024-11-27 完成售后
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 2024-11-28 完成用户中心
+
+- 2024-11-29 完成营销中心
+
+- 2024-11-30 完成数据分析
+
+## 待解决问题
+
+- 1. 商品详情页面的图片轮播
+- 2. 商品详情页面的规格选择
+- 3. Web部署,数据同步
+- 4. 用户信息安全,订单信息安全
+- 5. SEO 优化,AI Blog 生成
+- 6. 移动端适配
