@@ -11,7 +11,7 @@ export const Header = async () => {
     <header
       className="fixed top-0 z-40 hidden md:flex w-full"
       style={{
-        backgroundColor: `rgba(${header?.backgroundColor?.r}, ${header?.backgroundColor?.g}, ${header?.backgroundColor?.b}, ${header?.backgroundColor?.a ? header?.backgroundColor?.a : 1})`,
+        backgroundColor: `rgba(${header?.backgroundColor?.r}, ${header?.backgroundColor?.g}, ${header?.backgroundColor?.b}, ${header?.backgroundColor?.a})`,
       }}
     >
       <div className="container mx-auto flex items-center justify-between py-2 px-4">

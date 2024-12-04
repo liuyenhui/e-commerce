@@ -1,11 +1,11 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "@/sanity/lib/client";
+import { client } from "@/sanity/lib/client";
 
 const QUERY_HEADER = defineQuery(`*[_type == "header"][0]
     {_id,title,subTitle,"backgroundColor": background.rgb,"logo": logo.asset->url}`);
 
 export async function getHeader() {
-  return await sanityFetch({ query: QUERY_HEADER });
+  return await client.fetch(QUERY_HEADER, {}, { next: { tags: ["post"] } });
 }
 
 const QUERY_HERO = defineQuery(`*[_type == "hero" && _id == "hero"][0]{
@@ -26,7 +26,7 @@ const QUERY_HERO = defineQuery(`*[_type == "hero" && _id == "hero"][0]{
 }`);
 
 export async function getHero() {
-  return await sanityFetch({ query: QUERY_HERO });
+  return await client.fetch(QUERY_HERO, {}, { next: { tags: ["post"] } });
 }
 const QUERY_PLAY = defineQuery(`*[_type == "play" ][0]{
   title,
@@ -41,5 +41,5 @@ const QUERY_PLAY = defineQuery(`*[_type == "play" ][0]{
 }`);
 
 export async function getPlay() {
-  return await sanityFetch({ query: QUERY_PLAY });
+  return await client.fetch(QUERY_PLAY, {}, { next: { tags: ["post"] } });
 }
