@@ -5,7 +5,11 @@ const QUERY_HEADER = defineQuery(`*[_type == "header"][0]
     {_id,title,subTitle,"backgroundColor": background.rgb,"logo": logo.asset->url}`);
 
 export async function getHeader() {
-  return await client.fetch(QUERY_HEADER, {}, { next: { tags: ["post"] } });
+  return await client.fetch(
+    QUERY_HEADER,
+    {},
+    { cache: "force-cache", next: { tags: ["header"] } }
+  );
 }
 
 const QUERY_HERO = defineQuery(`*[_type == "hero" && _id == "hero"][0]{
@@ -26,7 +30,11 @@ const QUERY_HERO = defineQuery(`*[_type == "hero" && _id == "hero"][0]{
 }`);
 
 export async function getHero() {
-  return await client.fetch(QUERY_HERO, {}, { next: { tags: ["post"] } });
+  return await client.fetch(
+    QUERY_HERO,
+    {},
+    { cache: "force-cache", next: { tags: ["hero"] } }
+  );
 }
 const QUERY_PLAY = defineQuery(`*[_type == "play" ][0]{
   title,
@@ -41,5 +49,9 @@ const QUERY_PLAY = defineQuery(`*[_type == "play" ][0]{
 }`);
 
 export async function getPlay() {
-  return await client.fetch(QUERY_PLAY, {}, { next: { tags: ["post"] } });
+  return await client.fetch(
+    QUERY_PLAY,
+    {},
+    { cache: "force-cache", next: { tags: ["play"] } }
+  );
 }
