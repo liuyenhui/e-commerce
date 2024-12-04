@@ -39,6 +39,124 @@ export type SanityImageDimensions = {
   aspectRatio?: number;
 };
 
+export type Geopoint = {
+  _type: "geopoint";
+  lat?: number;
+  lng?: number;
+  alt?: number;
+};
+
+export type Size = {
+  _id: string;
+  _type: "size";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  description?: string;
+  sizeValue?: {
+    unit?: "cm" | "mm" | "inch";
+    width?: number;
+    height?: number;
+  };
+};
+
+export type Tags = {
+  _id: string;
+  _type: "tags";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  leftTitle?: string;
+  leftDescription?: string;
+  leftButtonText?: string;
+  leftImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  leftButtonTag?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "tag";
+  };
+  rightTitle?: string;
+  rightDescription?: string;
+  rightButtonText?: string;
+  rightImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  rightButtonTag?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "tag";
+  };
+};
+
+export type Tag = {
+  _id: string;
+  _type: "tag";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  description?: string;
+  slug?: Slug;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type Play = {
+  _id: string;
+  _type: "play";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  buttonText?: string;
+  video?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    _type: "file";
+  };
+  product?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "goods";
+  };
+  isShow?: boolean;
+};
+
 export type SanityFileAsset = {
   _id: string;
   _type: "sanity.fileAsset";
@@ -61,11 +179,32 @@ export type SanityFileAsset = {
   source?: SanityAssetSourceData;
 };
 
-export type Geopoint = {
-  _type: "geopoint";
-  lat?: number;
-  lng?: number;
-  alt?: number;
+export type Hero = {
+  _id: string;
+  _type: "hero";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  background?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  buttonText?: string;
+  product?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "goods";
+  };
+  isShow?: boolean;
 };
 
 export type Goods = {
@@ -76,19 +215,29 @@ export type Goods = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  sku?: string;
+  description?: string;
   images?: Array<{
-    asset?: {
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    color?: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      [internalGroqTypeReferenceTo]?: "colorValue";
     };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
+    _type: "images";
     _key: string;
   }>;
-  description?: string;
   introduction?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -107,6 +256,7 @@ export type Goods = {
     _type: "block";
     _key: string;
   }>;
+  isOnSale?: boolean;
   class?: {
     _ref: string;
     _type: "reference";
@@ -119,9 +269,34 @@ export type Goods = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "brand";
   };
+  tags?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "tag";
+  }>;
+  origin?: "\u4E2D\u56FD" | "\u65E5\u672C" | "\u97E9\u56FD" | "\u7F8E\u56FD" | "\u82F1\u56FD" | "\u6CD5\u56FD" | "\u5FB7\u56FD" | "\u610F\u5927\u5229" | "\u897F\u73ED\u7259" | "\u5176\u4ED6";
   retailPrice?: number;
   memberPrice?: number;
   wholesalePrice?: number;
+  size?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "size";
+  }>;
+  color?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "colorValue";
+  }>;
+  weight?: number;
+  material?: string;
+  packaging?: string;
 };
 
 export type Brand = {
@@ -178,6 +353,16 @@ export type Class = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+};
+
+export type ColorValue = {
+  _id: string;
+  _type: "colorValue";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  color?: Color;
 };
 
 export type Slug = {
@@ -298,7 +483,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Goods | Brand | Class | Slug | Header | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Size | Tags | Tag | Play | SanityFileAsset | Hero | Goods | Brand | Class | ColorValue | Slug | Header | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/query/section.ts
 // Variable: QUERY_HEADER
@@ -310,11 +495,45 @@ export type QUERY_HEADERResult = {
   backgroundColor: RgbaColor | null;
   logo: string | null;
 } | null;
+// Variable: QUERY_HERO
+// Query: *[_type == "hero" && _id == "hero"][0]{  title,buttonText,  "ref":product._ref,  "background":background.asset->url,    isShow,  product->{    name,    origin,    description,    "slug":slug.current,    brand->{       name,       "logo":logo.asset->url    }  }}
+export type QUERY_HEROResult = {
+  title: string | null;
+  buttonText: string | null;
+  ref: string | null;
+  background: string | null;
+  isShow: boolean | null;
+  product: {
+    name: string | null;
+    origin: "\u4E2D\u56FD" | "\u5176\u4ED6" | "\u5FB7\u56FD" | "\u610F\u5927\u5229" | "\u65E5\u672C" | "\u6CD5\u56FD" | "\u7F8E\u56FD" | "\u82F1\u56FD" | "\u897F\u73ED\u7259" | "\u97E9\u56FD" | null;
+    description: string | null;
+    slug: string | null;
+    brand: {
+      name: string | null;
+      logo: string | null;
+    } | null;
+  } | null;
+} | null;
+// Variable: QUERY_PLAY
+// Query: *[_type == "play" ][0]{  title,  isShow,  buttonText,  "video":video.asset->url,  product->{    "slug":slug.current,    name,    description  }}
+export type QUERY_PLAYResult = {
+  title: string | null;
+  isShow: boolean | null;
+  buttonText: string | null;
+  video: string | null;
+  product: {
+    slug: string | null;
+    name: string | null;
+    description: string | null;
+  } | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"header\"][0]\n    {_id,title,subTitle,\"backgroundColor\": background.rgb,\"logo\": logo.asset->url}": QUERY_HEADERResult;
+    "*[_type == \"hero\" && _id == \"hero\"][0]{\n  title,buttonText,\n  \"ref\":product._ref,\n  \"background\":background.asset->url,  \n  isShow,\n  product->{\n    name,\n    origin,\n    description,\n    \"slug\":slug.current,\n    brand->{\n       name,\n       \"logo\":logo.asset->url\n    }\n  }\n}": QUERY_HEROResult;
+    "*[_type == \"play\" ][0]{\n  title,\n  isShow,\n  buttonText,\n  \"video\":video.asset->url,\n  product->{\n    \"slug\":slug.current,\n    name,\n    description\n  }\n}": QUERY_PLAYResult;
   }
 }

@@ -1,5 +1,11 @@
 import { defineField, defineType } from "sanity";
-import { PrinterIcon, Wrench, DollarSignIcon, ShoppingBag } from "lucide-react";
+import {
+  PrinterIcon,
+  Wrench,
+  DollarSignIcon,
+  ShoppingBag,
+  Box,
+} from "lucide-react";
 import { uuid } from "@sanity/uuid";
 const GROUPS = [
   {
@@ -22,6 +28,11 @@ const GROUPS = [
     name: "prices",
     title: "价格体系",
     icon: DollarSignIcon,
+  },
+  {
+    name: "specifications",
+    title: "规格",
+    icon: Box,
   },
 ];
 export default defineType({
@@ -74,13 +85,39 @@ export default defineType({
       },
       of: [
         defineField({
-          type: "image",
-          name: "image",
+          type: "object",
+          name: "images",
           title: "商品图片",
-          options: {
-            hotspot: true,
-            metadata: ["palette", "exif"],
+          preview: {
+            select: {
+              title: "image",
+              color: "color",
+              image: "image.asset",
+            },
+            prepare({ image }) {
+              return {
+                title: "商品图片",
+                media: image,
+              };
+            },
           },
+          fields: [
+            {
+              type: "image",
+              name: "image",
+              title: "商品图片",
+              options: {
+                hotspot: true,
+                // metadata: ["palette", "exif"],
+              },
+            },
+            {
+              type: "reference",
+              name: "color",
+              title: "颜色",
+              to: [{ type: "colorValue" }],
+            },
+          ],
         }),
       ],
     }),
@@ -90,6 +127,12 @@ export default defineType({
       type: "array",
       group: "base",
       of: [{ type: "block" }],
+    }),
+    defineField({
+      name: "isOnSale",
+      title: "是否上架",
+      type: "boolean",
+      group: "base",
     }),
     defineField({
       name: "class",
@@ -104,6 +147,35 @@ export default defineType({
       type: "reference",
       to: [{ type: "brand" }],
       group: "parameters",
+    }),
+    defineField({
+      name: "tags",
+      title: "标签",
+      type: "array",
+      group: "parameters",
+      of: [{ type: "reference", to: [{ type: "tag" }] }],
+    }),
+
+    defineField({
+      name: "origin",
+      title: "产地",
+      type: "string",
+      group: "parameters",
+      options: {
+        list: [
+          "中国",
+          "日本",
+          "韩国",
+          "美国",
+          "英国",
+          "法国",
+          "德国",
+          "意大利",
+          "西班牙",
+          "其他",
+        ],
+      },
+      initialValue: "中国",
     }),
     defineField({
       name: "retailPrice",
@@ -124,12 +196,44 @@ export default defineType({
       type: "number",
       group: "prices",
     }),
+    defineField({
+      name: "size",
+      title: "尺寸",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "size" }] }],
+      group: "specifications",
+    }),
+    defineField({
+      name: "color",
+      title: "颜色",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "colorValue" }] }],
+      group: "specifications",
+    }),
+    defineField({
+      name: "weight",
+      title: "重量",
+      type: "number",
+      group: "specifications",
+    }),
+    defineField({
+      name: "material",
+      title: "材质",
+      type: "string",
+      group: "specifications",
+    }),
+    defineField({
+      name: "packaging",
+      title: "包装",
+      type: "string",
+      group: "specifications",
+    }),
   ],
   // 预览
   preview: {
     select: {
       title: "name",
-      media: "images.0.asset",
+      media: "images.0.image.asset",
       description: "description",
       price: "retailPrice",
       className: "class.name",

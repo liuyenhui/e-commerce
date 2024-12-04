@@ -5,12 +5,13 @@ import Image from "next/image";
 
 export const Header = async () => {
   const header = await getHeader();
-  console.log("header", header);
+  // console.log("header", header);
+
   return (
     <header
-      className="border-b sticky top-0 z-40"
+      className="fixed top-0 z-40 hidden md:flex w-full"
       style={{
-        backgroundColor: `rgba(${header.backgroundColor.r}, ${header.backgroundColor.g}, ${header.backgroundColor.b}, ${header.backgroundColor.a})`,
+        backgroundColor: `rgba(${header?.backgroundColor?.r}, ${header?.backgroundColor?.g}, ${header?.backgroundColor?.b}, ${header?.backgroundColor?.a ? header?.backgroundColor?.a : 1})`,
       }}
     >
       <div className="container mx-auto flex items-center justify-between py-2 px-4">

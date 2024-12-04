@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-export const Categories = () => {
+export const Tags = () => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">

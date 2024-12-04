@@ -17,6 +17,20 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 Open [http://localhost:3000/admin](http://localhost:3000/admin) with your browser sanity studio.
 
+## typegen
+
+```bash
+yarn typegen
+```
+
+### package.json
+
+```json
+"predev": "yarn typegen",
+
+"typegen": "sanity schema extract --path=./src/sanity/extract.json && sanity typegen generate"
+```
+
 ## 进度日志
 
 - 2024-11-19 完成商品设置、分类、品牌设置

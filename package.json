@@ -20,6 +20,7 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/uuid": "^3.0.2",
     "@sanity/vision": "^3.64.1",
+    "@types/video-react": "^0.15.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.456.0",
@@ -27,11 +28,14 @@
     "next-sanity": "^9.8.12",
     "react": "^18",
     "react-dom": "^18",
+    "react-player": "^2.16.0",
     "sanity": "^3.64.0",
     "sanity-plugin-media": "^2.3.2",
+    "sanity-plugin-mux-input": "^2.4.0",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "video-react": "^0.16.0"
   },
   "devDependencies": {
     "@types/node": "^20",
