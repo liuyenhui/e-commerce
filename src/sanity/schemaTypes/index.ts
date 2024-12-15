@@ -8,18 +8,20 @@ import size from "./goods/group/size";
 import color from "./goods/group/color";
 import hero from "./section/hero";
 import play from "./section/play";
-import tags from "./section/tags";
+import billboard from "./section/billboard";
+import popular from "./section/popular";
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     header,
     hero,
     play,
-    tags,
+    billboard,
     goodsClass,
     goodsBrand,
     tag,
     size,
     color,
     goods,
+    popular,
   ],
 };

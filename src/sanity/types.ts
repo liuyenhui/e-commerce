@@ -46,6 +46,22 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Popular = {
+  _id: string;
+  _type: "popular";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  goods?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "goods";
+  }>;
+};
+
 export type Size = {
   _id: string;
   _type: "size";
@@ -61,9 +77,9 @@ export type Size = {
   };
 };
 
-export type Tags = {
+export type Billboard = {
   _id: string;
-  _type: "tags";
+  _type: "billboard";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -81,11 +97,18 @@ export type Tags = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  leftButtonTag?: {
+  leftType?: "tags" | "categories";
+  leftTags?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "tag";
+  };
+  leftCategories?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "class";
   };
   rightTitle?: string;
   rightDescription?: string;
@@ -101,11 +124,18 @@ export type Tags = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  rightButtonTag?: {
+  rightType?: "tags" | "categories";
+  rightTags?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "tag";
+  };
+  rightCategories?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "class";
   };
 };
 
@@ -483,7 +513,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Size | Tags | Tag | Play | SanityFileAsset | Hero | Goods | Brand | Class | ColorValue | Slug | Header | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Popular | Size | Billboard | Tag | Play | SanityFileAsset | Hero | Goods | Brand | Class | ColorValue | Slug | Header | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/query/section.ts
 // Variable: QUERY_HEADER
@@ -527,6 +557,115 @@ export type QUERY_PLAYResult = {
     description: string | null;
   } | null;
 } | null;
+// Variable: QUERY_BILLBOARD
+// Query: *[_type == "billboard"][0]{  "leftImage":leftImage.asset->url,  "rightImage":rightImage.asset->url,  leftTitle,  rightTitle,  leftDescription,  rightDescription,  leftButtonText,  rightButtonText,  leftTags->,  rightTags->,  leftCategories->,  rightCategories->    }
+export type QUERY_BILLBOARDResult = {
+  leftImage: string | null;
+  rightImage: string | null;
+  leftTitle: string | null;
+  rightTitle: string | null;
+  leftDescription: string | null;
+  rightDescription: string | null;
+  leftButtonText: string | null;
+  rightButtonText: string | null;
+  leftTags: {
+    _id: string;
+    _type: "tag";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    description?: string;
+    slug?: Slug;
+    logo?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | null;
+  rightTags: {
+    _id: string;
+    _type: "tag";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    description?: string;
+    slug?: Slug;
+    logo?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | null;
+  leftCategories: {
+    _id: string;
+    _type: "class";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | null;
+  rightCategories: {
+    _id: string;
+    _type: "class";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | null;
+} | null;
+// Variable: QUERY_POPULAR
+// Query: *[_type == "popular" && _id == "popular"][0]{  title,  sku,  "goods":goods[]->{      sku,      name,      retailPrice,      isOnSale,      "image":images[0].image.asset->url  }}
+export type QUERY_POPULARResult = {
+  title: string | null;
+  sku: null;
+  goods: Array<{
+    sku: string | null;
+    name: string | null;
+    retailPrice: number | null;
+    isOnSale: boolean | null;
+    image: string | null;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -535,5 +674,7 @@ declare module "@sanity/client" {
     "*[_type == \"header\"][0]\n    {_id,title,subTitle,\"backgroundColor\": background.rgb,\"logo\": logo.asset->url}": QUERY_HEADERResult;
     "*[_type == \"hero\" && _id == \"hero\"][0]{\n  title,buttonText,\n  \"ref\":product._ref,\n  \"background\":background.asset->url,  \n  isShow,\n  product->{\n    name,\n    origin,\n    description,\n    \"slug\":slug.current,\n    brand->{\n       name,\n       \"logo\":logo.asset->url\n    }\n  }\n}": QUERY_HEROResult;
     "*[_type == \"play\" ][0]{\n  title,\n  isShow,\n  buttonText,\n  \"video\":video.asset->url,\n  product->{\n    \"slug\":slug.current,\n    name,\n    description\n  }\n}": QUERY_PLAYResult;
+    "*[_type == \"billboard\"][0]{\n  \"leftImage\":leftImage.asset->url,\n  \"rightImage\":rightImage.asset->url,\n  leftTitle,\n  rightTitle,\n  leftDescription,\n  rightDescription,\n  leftButtonText,\n  rightButtonText,\n  leftTags->,\n  rightTags->,\n  leftCategories->,\n  rightCategories->\n    \n}": QUERY_BILLBOARDResult;
+    "*[_type == \"popular\" && _id == \"popular\"][0]{\n  title,\n  sku,\n  \"goods\":goods[]->{\n      sku,\n      name,\n      retailPrice,\n      isOnSale,\n      \"image\":images[0].image.asset->url\n  }\n}": QUERY_POPULARResult;
   }
 }

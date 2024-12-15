@@ -55,3 +55,45 @@ export async function getPlay() {
     { cache: "force-cache", next: { tags: ["play"] } }
   );
 }
+const QUERY_BILLBOARD = defineQuery(`*[_type == "billboard"][0]{
+  "leftImage":leftImage.asset->url,
+  "rightImage":rightImage.asset->url,
+  leftTitle,
+  rightTitle,
+  leftDescription,
+  rightDescription,
+  leftButtonText,
+  rightButtonText,
+  leftTags->,
+  rightTags->,
+  leftCategories->,
+  rightCategories->
+    
+}`);
+
+export async function getBillboard() {
+  return await client.fetch(
+    QUERY_BILLBOARD,
+    {},
+    { cache: "force-cache", next: { tags: ["billboard"] } }
+  );
+}
+const QUERY_POPULAR = defineQuery(`*[_type == "popular" && _id == "popular"][0]{
+  title,
+  sku,
+  "goods":goods[]->{
+      sku,
+      name,
+      retailPrice,
+      isOnSale,
+      "image":images[0].image.asset->url
+  }
+}`);
+
+export async function getPopular() {
+  return await client.fetch(
+    QUERY_POPULAR,
+    {},
+    { cache: "force-cache", next: { tags: ["popular"] } }
+  );
+}

@@ -190,6 +190,94 @@
     }
   },
   {
+    "name": "popular",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "popular"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "goods": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_ref": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "reference"
+                }
+              },
+              "_weak": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "boolean"
+                },
+                "optional": true
+              }
+            },
+            "dereferencesTo": "goods",
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "optional": true
+      }
+    }
+  },
+  {
     "name": "size",
     "type": "document",
     "attributes": {
@@ -285,7 +373,7 @@
     }
   },
   {
-    "name": "tags",
+    "name": "billboard",
     "type": "document",
     "attributes": {
       "_id": {
@@ -298,7 +386,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "tags"
+          "value": "billboard"
         }
       },
       "_createdAt": {
@@ -402,7 +490,24 @@
         },
         "optional": true
       },
-      "leftButtonTag": {
+      "leftType": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "tags"
+            },
+            {
+              "type": "string",
+              "value": "categories"
+            }
+          ]
+        },
+        "optional": true
+      },
+      "leftTags": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
@@ -429,6 +534,36 @@
             }
           },
           "dereferencesTo": "tag"
+        },
+        "optional": true
+      },
+      "leftCategories": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "_ref": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              }
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "reference"
+              }
+            },
+            "_weak": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "boolean"
+              },
+              "optional": true
+            }
+          },
+          "dereferencesTo": "class"
         },
         "optional": true
       },
@@ -515,7 +650,24 @@
         },
         "optional": true
       },
-      "rightButtonTag": {
+      "rightType": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "tags"
+            },
+            {
+              "type": "string",
+              "value": "categories"
+            }
+          ]
+        },
+        "optional": true
+      },
+      "rightTags": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
@@ -542,6 +694,36 @@
             }
           },
           "dereferencesTo": "tag"
+        },
+        "optional": true
+      },
+      "rightCategories": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "_ref": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              }
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "reference"
+              }
+            },
+            "_weak": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "boolean"
+              },
+              "optional": true
+            }
+          },
+          "dereferencesTo": "class"
         },
         "optional": true
       }

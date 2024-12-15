@@ -1,6 +1,6 @@
 import { Header } from "@/components/section/header";
 import { Hero } from "@/components/section/hero";
-import { Tags } from "@/components/section/tags";
+import { Billboard } from "@/components/section/billboard";
 import { Popular } from "@/components/section/popular";
 import { Customer } from "@/components/section/customer";
 import { Featured } from "@/components/section/featured";
@@ -20,8 +20,8 @@ export default function Home() {
       index: 0,
     },
     {
-      key: "categories",
-      component: <Tags key="tags" />,
+      key: "billboard",
+      component: <Billboard key="billboard" />,
       index: 1,
     },
     {

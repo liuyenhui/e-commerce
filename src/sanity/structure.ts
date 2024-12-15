@@ -1,6 +1,6 @@
 import type { StructureResolver } from "sanity/structure";
 // https://lucide.dev/icons/
-import { SquareChevronRight, VideoIcon } from "lucide-react";
+import { SquareChevronRight, VideoIcon, CircuitBoardIcon } from "lucide-react";
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
@@ -24,11 +24,7 @@ export const structure: StructureResolver = (S) =>
                 .id("header")
                 .title("Header")
                 .icon(SquareChevronRight)
-                .child(
-                  S.document()
-                    .schemaType("header")
-                    .documentId("cc391618-f0e0-4f82-bdd0-942c2e18cce4")
-                ),
+                .child(S.document().schemaType("header").documentId("header")),
               S.listItem()
                 .id("hero")
                 .title("Hero")
@@ -40,10 +36,19 @@ export const structure: StructureResolver = (S) =>
                 .icon(VideoIcon)
                 .child(S.document().schemaType("play").documentId("play")),
               S.listItem()
-                .id("tags")
-                .title("Tags")
-                .icon(() => "🏷️")
-                .child(S.document().schemaType("tags").documentId("tags")),
+                .id("billboard")
+                .title("Billboard")
+                .icon(CircuitBoardIcon)
+                .child(
+                  S.document().schemaType("billboard").documentId("billboard")
+                ),
+              S.listItem()
+                .id("popular")
+                .title("Popular")
+                .icon(() => "👏🏻")
+                .child(
+                  S.document().schemaType("popular").documentId("popular")
+                ),
             ])
         ),
       // 商品设置 -> 分类、品牌
