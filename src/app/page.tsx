@@ -2,7 +2,7 @@ import { Header } from "@/components/section/header";
 import { Hero } from "@/components/section/hero";
 import { Billboard } from "@/components/section/billboard";
 import { Popular } from "@/components/section/popular";
-import { Customer } from "@/components/section/customer";
+import { Comments } from "@/components/section/comments";
 import { Featured } from "@/components/section/featured";
 import { Footer } from "@/components/section/footer";
 import { Play } from "@/components/section/play";
@@ -30,8 +30,8 @@ export default function Home() {
       index: 2,
     },
     {
-      key: "customer",
-      component: <Customer key="customer" />,
+      key: "comments",
+      component: <Comments key="comments" />,
       index: 3,
     },
     {

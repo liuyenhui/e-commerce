@@ -46,6 +46,125 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Featured = {
+  _id: string;
+  _type: "featured";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  first?: {
+    title?: string;
+    description?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    buttonText?: string;
+    type?: "tag" | "brand";
+    tag?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "tag";
+    };
+    brand?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "brand";
+    };
+  };
+  second?: {
+    title?: string;
+    description?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    buttonText?: string;
+    type?: "tag" | "brand";
+    tag?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "tag";
+    };
+    brand?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "brand";
+    };
+  };
+};
+
+export type Comments = {
+  _id: string;
+  _type: "comments";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  text?: string;
+  rating?: 1 | 2 | 3 | 4 | 5;
+  createdAt?: string;
+  user?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "users";
+  };
+  product?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "goods";
+  };
+};
+
+export type Users = {
+  _id: string;
+  _type: "users";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  accountType?: Array<string>;
+  registrationDate?: string;
+  registrationType?: "google" | "email";
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  country?: "AF" | "AX" | "AL" | "DZ" | "AS" | "AD" | "AO" | "AI" | "AQ" | "AG" | "AR" | "AM" | "AW" | "AU" | "AT" | "AZ" | "BS" | "BH" | "BD" | "BB" | "BY" | "BE" | "BZ" | "BJ" | "BM" | "BT" | "BO" | "BA" | "BW" | "BV" | "BR" | "IO" | "BN" | "BG" | "BF" | "BI" | "KH" | "CM" | "CA" | "CV" | "KY" | "CF" | "TD" | "CL" | "CN" | "CX" | "CC" | "CO" | "KM" | "CG" | "CD" | "CK" | "CR";
+  zip?: string;
+  creditCards?: Array<{
+    cardType?: "visa" | "mastercard" | "amex";
+    cardNumber?: string;
+    expirationDate?: string;
+    cvv?: string;
+    _type: "creditCard";
+    _key: string;
+  }>;
+};
+
 export type Popular = {
   _id: string;
   _type: "popular";
@@ -513,7 +632,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Popular | Size | Billboard | Tag | Play | SanityFileAsset | Hero | Goods | Brand | Class | ColorValue | Slug | Header | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Featured | Comments | Users | Popular | Size | Billboard | Tag | Play | SanityFileAsset | Hero | Goods | Brand | Class | ColorValue | Slug | Header | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/query/section.ts
 // Variable: QUERY_HEADER
@@ -666,6 +785,39 @@ export type QUERY_POPULARResult = {
     image: string | null;
   }> | null;
 } | null;
+// Variable: QUERY_COMMENTS
+// Query: *[_type == "comments" ]| order(rating desc){  _id,  user->{    lastName,    firstName,  },  "comment":text,  rating,  product->{    name,    slug,    "image":images[0].image.asset->url  }}[0...3]
+export type QUERY_COMMENTSResult = Array<{
+  _id: string;
+  user: {
+    lastName: string | null;
+    firstName: string | null;
+  } | null;
+  comment: string | null;
+  rating: 1 | 2 | 3 | 4 | 5 | null;
+  product: {
+    name: string | null;
+    slug: Slug | null;
+    image: string | null;
+  } | null;
+}>;
+// Variable: QUERY_FEATURED
+// Query: *[_type == "featured" && _id == "featured"][0]{  title,  "first":{    "title":first.title,    "description":first.description,    "imageurl":first.image.asset->url,    "slug":select(      first.type == "brand" => first.brand->slug.current,      first.type == "tag" => first.tag->slug.current    )  },  "second":{    "title":first.title,    "description":first.description,    "imageurl":second.image.asset->url,    "slug":select(      second.type == "brand" => second.brand->slug.current,      second.type == "tag" => second.tag->slug.current    )  },}
+export type QUERY_FEATUREDResult = {
+  title: string | null;
+  first: {
+    title: string | null;
+    description: string | null;
+    imageurl: string | null;
+    slug: string | null;
+  };
+  second: {
+    title: string | null;
+    description: string | null;
+    imageurl: string | null;
+    slug: string | null;
+  };
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -676,5 +828,7 @@ declare module "@sanity/client" {
     "*[_type == \"play\" ][0]{\n  title,\n  isShow,\n  buttonText,\n  \"video\":video.asset->url,\n  product->{\n    \"slug\":slug.current,\n    name,\n    description\n  }\n}": QUERY_PLAYResult;
     "*[_type == \"billboard\"][0]{\n  \"leftImage\":leftImage.asset->url,\n  \"rightImage\":rightImage.asset->url,\n  leftTitle,\n  rightTitle,\n  leftDescription,\n  rightDescription,\n  leftButtonText,\n  rightButtonText,\n  leftTags->,\n  rightTags->,\n  leftCategories->,\n  rightCategories->\n    \n}": QUERY_BILLBOARDResult;
     "*[_type == \"popular\" && _id == \"popular\"][0]{\n  title,\n  sku,\n  \"goods\":goods[]->{\n      sku,\n      name,\n      retailPrice,\n      isOnSale,\n      \"image\":images[0].image.asset->url\n  }\n}": QUERY_POPULARResult;
+    "*[_type == \"comments\" ]| order(rating desc){\n  _id,\n  user->{\n    lastName,\n    firstName,\n  },\n  \"comment\":text,\n  rating,\n  product->{\n    name,\n    slug,\n    \"image\":images[0].image.asset->url\n  }\n}[0...3]": QUERY_COMMENTSResult;
+    "*[_type == \"featured\" && _id == \"featured\"][0]{\n  title,\n  \"first\":{\n    \"title\":first.title,\n    \"description\":first.description,\n    \"imageurl\":first.image.asset->url,\n    \"slug\":select(\n      first.type == \"brand\" => first.brand->slug.current,\n      first.type == \"tag\" => first.tag->slug.current\n    )\n  },\n  \"second\":{\n    \"title\":first.title,\n    \"description\":first.description,\n    \"imageurl\":second.image.asset->url,\n    \"slug\":select(\n      second.type == \"brand\" => second.brand->slug.current,\n      second.type == \"tag\" => second.tag->slug.current\n    )\n  },\n}": QUERY_FEATUREDResult;
   }
 }

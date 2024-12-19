@@ -8,7 +8,7 @@ export const structure: StructureResolver = (S) =>
     .title("Website Settings")
     .items([
       ...S.documentTypeListItems().filter((listItem) =>
-        ["goods"].includes(listItem.getId() || "")
+        ["goods", "users", "comments"].includes(listItem.getId() || "")
       ),
       S.divider(),
       S.listItem()
@@ -48,6 +48,13 @@ export const structure: StructureResolver = (S) =>
                 .icon(() => "👏🏻")
                 .child(
                   S.document().schemaType("popular").documentId("popular")
+                ),
+              S.listItem()
+                .id("featured")
+                .title("Featured")
+                .icon(() => "🎁")
+                .child(
+                  S.document().schemaType("featured").documentId("featured")
                 ),
             ])
         ),

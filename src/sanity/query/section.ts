@@ -97,3 +97,62 @@ export async function getPopular() {
     { cache: "force-cache", next: { tags: ["popular"] } }
   );
 }
+
+// get comments top 3 order by rating
+const QUERY_COMMENTS = defineQuery(`*[_type == "comments" ]| order(rating desc){
+  _id,
+  user->{
+    lastName,
+    firstName,
+  },
+  "comment":text,
+  rating,
+  product->{
+    name,
+    slug,
+    "image":images[0].image.asset->url
+  }
+}[0...3]`);
+
+export async function getComments() {
+  return await client.fetch(
+    QUERY_COMMENTS,
+    {},
+    { cache: "force-cache", next: { tags: ["comments"] } }
+  );
+}
+
+const QUERY_FEATURED =
+  defineQuery(`*[_type == "featured" && _id == "featured"][0]{
+  title,
+  "first":{
+    "title":first.title,
+    "description":first.description,
+    "buttonText":first.buttonText,
+    "type":first.type,
+    "imageurl":first.image.asset->url,
+    "slug":select(
+      first.type == "brand" => first.brand->slug.current,
+      first.type == "tag" => first.tag->slug.current
+    )
+  },
+  "second":{
+    "title":second.title,
+    "description":second.description,
+    "buttonText":second.buttonText,
+    "type":second.type,
+    "imageurl":second.image.asset->url,
+    "slug":select(
+      second.type == "brand" => second.brand->slug.current,
+      second.type == "tag" => second.tag->slug.current
+    )
+  },
+}`);
+
+export async function getFeatured() {
+  return await client.fetch(
+    QUERY_FEATURED,
+    {},
+    { cache: "force-cache", next: { tags: ["featured"] } }
+  );
+}

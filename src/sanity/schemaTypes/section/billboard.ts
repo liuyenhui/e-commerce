@@ -54,7 +54,7 @@ export default defineType({
       title: "选择标签",
       type: "reference",
       to: [{ type: "tag" }],
-      hidden: ({ parent }) => parent.leftType !== "tags",
+      hidden: ({ parent }) => parent?.leftType !== "tags",
       group: "left",
     }),
     defineField({
@@ -62,7 +62,7 @@ export default defineType({
       title: "选择分类",
       type: "reference",
       to: [{ type: "class" }],
-      hidden: ({ parent }) => parent.leftType !== "categories",
+      hidden: ({ parent }) => parent?.leftType !== "categories",
       group: "left",
     }),
     defineField({
@@ -110,7 +110,7 @@ export default defineType({
       title: "选择标签",
       type: "reference",
       to: [{ type: "tag" }],
-      hidden: ({ parent }) => parent.rightType !== "tags",
+      hidden: ({ parent }) => parent?.rightType !== "tags",
       group: "right",
     }),
     defineField({
@@ -118,7 +118,7 @@ export default defineType({
       title: "选择分类",
       type: "reference",
       to: [{ type: "class" }],
-      hidden: ({ parent }) => parent.rightType !== "categories",
+      hidden: ({ parent }) => parent?.rightType !== "categories",
       group: "right",
     }),
   ],
